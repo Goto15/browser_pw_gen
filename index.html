@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="content-title">
+            <h1>Password Generator</h1>
+        </div>
+        <div class="selector-container"><h2>Length (1-256)</h2>
+            <input type="number" id="length_box" class="selector" min="1" max="256">
+        </div>
+        <div class="selector-container"><h2>Password Type</h2>
+            <input type="radio" name="password_type" class="selector" value="1">Random String<br>
+            <input type="radio" name="password_type" class="selector" value="0">XKCD Style<br>
+        </div>
+        <div class="selector-container"><h2>Password Characters</h2>
+            <input type="checkbox" id="lower_box" value="Lower" class="selector">Lower Case
+            <input type="checkbox" id="upper_box" value="Upper" class="selector">Upper Case
+            <input type="checkbox" id="num_box" value="Numbers" class="selector">Numbers
+            <input type="checkbox" id="spec_box" value="Special" class="selector">Special & ASCII
+        </div>
+        <button id="results_button">Results</button>
+        <div id="password_results" class="content"></div>
+    </body>
+
+    <script src="js/generator.js"></script>
+</html>
