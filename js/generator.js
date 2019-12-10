@@ -6,6 +6,11 @@ const CHAR_SET = {
     Special: "!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
 }
 
+//Calculate the selected password's entropy
+function calculateEntropy(length, chars){
+    return Math.log2(Math.pow(chars.length, length)).toFixed(2)
+}
+
 //Returns a string from the selected character set. 
 function generatePassword(length, characters){
     if(length > 256){
@@ -33,20 +38,28 @@ function generateRandomInt(min, max){
     return min + (array[0] % range)
 }
 
-$("#results_button").click("click", function(){
-    //First clear the results div
-    $("#password_results").text("")
-
+//Grabs the selected characters from the checkboxes
+function getCharArray(){
     var selected_chars = ""
+    //Character logic
+    if($("#lower_box").is(":checked"))
+        selected_chars += CHAR_SET.Lower
+    if($("#upper_box").is(":checked"))
+        selected_chars += CHAR_SET.Upper
+    if($("#num_box").is(":checked"))
+        selected_chars += CHAR_SET.Numbers
+    if($("#spec_box").is(":checked"))
+        selected_chars += CHAR_SET.Special
+    //If nothing is selected behave as if everything is.
+    if(!selected_chars)
+        selected_chars += CHAR_SET.Lower + CHAR_SET.Upper + CHAR_SET.Numbers + CHAR_SET.Special
+
+    return selected_chars
+}
+
+//Grabs the user input length
+function getPwLength(){
     var selected_length = parseInt($("#length_box").val())
-    var selected_type = parseInt($("input[name='password_type']:checked").val())
-
-    //Password Type Logic
-
-    if(!selected_type){
-        $("#password_results").text("Not implemented yet.")
-        return
-    } 
 
     //Length logic
     if(!(1 <= selected_length && selected_length <=256)){
@@ -54,23 +67,10 @@ $("#results_button").click("click", function(){
         return
     }
 
-    //Character logic
-    if($("#lower_box").is(":checked")){
-        selected_chars += CHAR_SET.Lower
-    }
-    if($("#upper_box").is(":checked")){
-        selected_chars += CHAR_SET.Upper
-    }
-    if($("#num_box").is(":checked")){
-        selected_chars += CHAR_SET.Numbers
-    }
-    if($("#spec_box").is(":checked")){
-        selected_chars += CHAR_SET.Special
-    }
-    if(!selected_chars){
-        //If nothing is selected behave as if everything is.
-        selected_chars += CHAR_SET.Lower + CHAR_SET.Upper + CHAR_SET.Numbers + CHAR_SET.Special
-    }
+    return selected_length
+}
 
-    $("#password_results").text(generatePassword(selected_length, selected_chars))
+$("#results_button").click("click", function(){
+    $("#password_results").text(generatePassword(getPwLength(), getCharArray()))
+    $("#password_entropy").text(calculateEntropy(getPwLength(), getCharArray()))
 })
