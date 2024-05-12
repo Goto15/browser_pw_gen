@@ -1,0 +1,47 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    border: medium none;
+    border-spacing: 0;
+}
+
+:root {
+    --input-blue: #007aff;
+    --input-border: #8b8a8b;
+}
+
+body {
+    font-family: "Fira Code", monospace;
+    color: #232323;
+    font-size: 1.1em;
+    margin: 2em auto;
+    max-width: 800px;
+    padding: 1em;
+    line-height: 1.4;
+}
+
+input {
+    font-size: 16px;
+    font-size: max(16px, 1em);
+    font-family: inherit;
+    padding: 0.25em 0.5em;
+    margin-right: .5em;
+    background-color: white;
+    border: 2px solid var(--input-border);
+    border-radius: 4px;
+}
+
+button {
+    background: var(--input-blue);
+    border-radius: 7px;
+    color: white;
+    cursor: pointer;
+    font-family: "Fira Code", monospace;
+    font-size: 16px;
+    opacity: 1;
+    padding: 8px 18px;
+}
